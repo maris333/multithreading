@@ -2,6 +2,7 @@ import random
 import time
 import threading
 from multiprocessing import Process
+import numpy as np
 
 
 # Bubble sort implementation
@@ -20,7 +21,7 @@ def bubble_sort(arr):
 # Multithreading implementation
 def sort_with_threads(arr, num_threads):
     threads = []
-    chunks = [arr[i::num_threads] for i in range(num_threads)]
+    chunks = np.array_split(arr, num_threads)
 
     # Create threads and assign a chunk of the array to each thread
     for i in range(num_threads):
@@ -43,8 +44,8 @@ def sort_with_threads(arr, num_threads):
 
 # Multiprocessing implementation
 def sort_with_processes(arr, num_processes):
-    chunks = [arr[i::num_processes] for i in range(num_processes)]
     processes = []
+    chunks = np.array_split(arr, num_processes)
 
     # Create processes and assign a chunk of the array to each process
     for i in range(num_processes):
